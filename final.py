@@ -30,8 +30,6 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-# Add this line after your imports
-add_bg_from_local('microphone.png')  # Adjust path as needed
 # Load spaCy's pre-trained English model
 nlp = spacy.load("en_core_web_sm")
 
