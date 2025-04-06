@@ -65,8 +65,8 @@ def download_audio(video_url, output_folder="audio"):
 def transcribe_audio_reverie(audio_file, lang):
     api_url = "https://revapi.reverieinc.com/"
     headers = {
-        'REV-API-KEY': 'b024b10b9bb76059699ea17e85047ff2ad349ada',  # Replace with your Reverie API key
-        'REV-APP-ID': 'com.advaygujar2005',   # Replace with your Reverie App ID
+        'REV-API-KEY': '',  # Replace with your Reverie API key
+        'REV-APP-ID': '',   # Replace with your Reverie App ID
         'REV-APPNAME': 'stt_file',
         'src_lang': lang,  # 'hi' for Hindi, adjust for other languages
         'domain': 'generic',
