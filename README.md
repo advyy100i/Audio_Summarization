@@ -6,3 +6,6 @@ This audio summarization app has following features:
 6. Extract Keywords
 7. Search words/exact phrases in the transcript
 8. Download transcript in txt format
+
+final.py for english and french, 
+multilingual.py for indian languages
