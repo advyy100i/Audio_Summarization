@@ -58,6 +58,18 @@ class SMSExtractor:
             r'(?:Ref|Reference|Txn|Transaction)(?:\s*No\.?|\s*ID)?:?\s*([A-Z0-9]+)',
             r'UPI/(\d+)',
         ]
+        
+        # Category keywords
+        self.categories = {
+            'food': ['restaurant', 'cafe', 'food', 'zomato', 'swiggy', 'mcdonald', 'kfc', 'pizza', 'domino'],
+            'shopping': ['amazon', 'flipkart', 'myntra', 'shopping', 'mall', 'store', 'mart', 'retail'],
+            'transport': ['uber', 'ola', 'taxi', 'cab', 'metro', 'bus', 'fuel', 'petrol', 'diesel'],
+            'utilities': ['electricity', 'water', 'gas', 'bill', 'recharge', 'mobile', 'broadband', 'internet'],
+            'entertainment': ['movie', 'cinema', 'netflix', 'prime', 'spotify', 'game', 'entertainment'],
+            'healthcare': ['hospital', 'clinic', 'doctor', 'pharmacy', 'medical', 'medicine', 'health'],
+            'education': ['school', 'college', 'university', 'course', 'tuition', 'book', 'education'],
+            'transfer': ['transfer', 'sent to', 'paid to', 'upi'],
+        }
     
     def extract_amount(self, text: str) -> Optional[float]:
         """Extract monetary amount from SMS text."""
@@ -132,19 +144,7 @@ class SMSExtractor:
         
         text_combined = f"{merchant} {text}".lower()
         
-        # Category keywords
-        categories = {
-            'food': ['restaurant', 'cafe', 'food', 'zomato', 'swiggy', 'mcdonald', 'kfc', 'pizza', 'domino'],
-            'shopping': ['amazon', 'flipkart', 'myntra', 'shopping', 'mall', 'store', 'mart', 'retail'],
-            'transport': ['uber', 'ola', 'taxi', 'cab', 'metro', 'bus', 'fuel', 'petrol', 'diesel'],
-            'utilities': ['electricity', 'water', 'gas', 'bill', 'recharge', 'mobile', 'broadband', 'internet'],
-            'entertainment': ['movie', 'cinema', 'netflix', 'prime', 'spotify', 'game', 'entertainment'],
-            'healthcare': ['hospital', 'clinic', 'doctor', 'pharmacy', 'medical', 'medicine', 'health'],
-            'education': ['school', 'college', 'university', 'course', 'tuition', 'book', 'education'],
-            'transfer': ['transfer', 'sent to', 'paid to', 'upi'],
-        }
-        
-        for category, keywords in categories.items():
+        for category, keywords in self.categories.items():
             for keyword in keywords:
                 if keyword in text_combined:
                     return category

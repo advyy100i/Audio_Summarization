@@ -65,7 +65,7 @@ Examples:
     if args.text:
         # Single SMS message
         result = extractor.extract_all(args.text, args.merchant)
-        output_result(result, args.format, args.verbose)
+        output_result(result, args.format, args.verbose, extractor)
     
     elif args.file:
         # Multiple SMS messages from file
@@ -78,7 +78,7 @@ Examples:
                 result = extractor.extract_all(msg, args.merchant)
                 results.append(result)
             
-            output_multiple_results(results, args.format, args.verbose)
+            output_multiple_results(results, args.format, args.verbose, extractor)
         
         except FileNotFoundError:
             print(f"Error: File '{args.file}' not found.", file=sys.stderr)
@@ -88,7 +88,7 @@ Examples:
             sys.exit(1)
 
 
-def output_result(result, format_type, verbose):
+def output_result(result, format_type, verbose, extractor):
     """Output a single extraction result."""
     if format_type == 'json':
         # Remove raw_text if not verbose
@@ -109,11 +109,10 @@ def output_result(result, format_type, verbose):
         print(','.join([f'"{v}"' for v in values]))
     
     else:  # text format
-        extractor = SMSExtractor()
         print(extractor.format_output(result))
 
 
-def output_multiple_results(results, format_type, verbose):
+def output_multiple_results(results, format_type, verbose, extractor):
     """Output multiple extraction results."""
     if format_type == 'json':
         # Remove raw_text if not verbose
@@ -137,7 +136,6 @@ def output_multiple_results(results, format_type, verbose):
             print(','.join([f'"{v}"' for v in values]))
     
     else:  # text format
-        extractor = SMSExtractor()
         for i, result in enumerate(results, 1):
             print(f"\nMessage {i}:")
             print(extractor.format_output(result))
